@@ -1,3 +1,4 @@
+const { contextBridge, ipcRenderer } = require('electron');
 /**
  * The preload script runs before. It has access to web APIs
  * as well as Electron's renderer process modules and some
@@ -15,3 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 })
+
+contextBridge.exposeInMainWorld(
+  "requires", {
+    prepare_record: e => ipcRenderer.invoke("prepare_record"),
+    saveBlob: blob => ipcRenderer.invoke("saveBlob", blob)
+  }
+)
