@@ -56,7 +56,7 @@ ipcMain.handle("prepare_record", async (event, arg) => {
   }
   recWindow.focus();
   const sources = await desktopCapturer.getSources({ types: ['window'] });
-  const source = sources.find(w => w.name = "Record Window");
+  const source = sources.find(w => w.name == "Record Window");
   return source ? source.id : undefined;
 });
 
